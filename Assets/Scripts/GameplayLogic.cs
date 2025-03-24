@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameplayLogic : MonoBehaviour
 {
     int NumHitNeed = 10;
-    int NumHitDone = 0;
+    int NumHitDone = 2000;
     float timeLimit = 10f; // Time limit in seconds
     float elapsedTime = 0f;
 
@@ -42,11 +42,11 @@ public class GameplayLogic : MonoBehaviour
             {
                 WinGameL();
             }
-            else if (NumHitDone == NumHitNeed)
+            else if (NumHitDone >= NumHitNeed)
             {
                 WinGameN();
             }
-            else if (NumHitDone == NumHitNeed && NumHitNeed <= 1000)
+            else if (NumHitDone >= NumHitNeed && NumHitNeed <= 1000)
             {
                 WinGameW();
             }
