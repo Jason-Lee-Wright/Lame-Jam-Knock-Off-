@@ -24,6 +24,8 @@ public class MenuJason : MonoBehaviour
         {
             managerJJ.gameplayLogic.SetDifficulty(int.Parse(difficultyInput.text)); // Pass value to GameplayLogic
 
+            managerJJ.gameplayLogic.ResetJ();
+
             GameplayJJ.gameObject.SetActive(true);
             MenuJJ.gameObject.SetActive(false);
         }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameplayLogic : MonoBehaviour
 {
     int NumHitNeed = 10;
-    int NumHitDone = 2000;
+    int NumHitDone = 0;
     float timeLimit = 10f; // Time limit in seconds
     float elapsedTime = 0f;
 
@@ -112,7 +113,7 @@ public class GameplayLogic : MonoBehaviour
             float maxWidth = progressBar.parent.GetComponent<RectTransform>().rect.width; // Get container width
 
             float newWidth = Mathf.Clamp(progress * maxWidth, 0, maxWidth); // Ensure it never exceeds maxWidth
-            progressBar.sizeDelta = new Vector2(newWidth, progressBar.sizeDelta.y);
+            progressBar.sizeDelta = new Vector2(newWidth / 2, progressBar.sizeDelta.y);
         }
     }
 
@@ -127,7 +128,7 @@ public class GameplayLogic : MonoBehaviour
 
         gameOverJJ = false;
 
-
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void LeaveGame()
