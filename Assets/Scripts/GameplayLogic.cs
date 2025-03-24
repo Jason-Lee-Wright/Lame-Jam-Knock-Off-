@@ -10,7 +10,6 @@ public class GameplayLogic : MonoBehaviour
     int NumHitDone = 0;
     float timeLimit = 10f; // Time limit in seconds
     float elapsedTime = 0f;
-    float progressDecayRate = 0.01f; // Rate at which progress decreases over time
 
     public TextMeshProUGUI WinText;
     public TextMeshProUGUI Timer;
@@ -33,35 +32,35 @@ public class GameplayLogic : MonoBehaviour
         if (gameOverJJ == false)
         {
             elapsedTime += Time.deltaTime;
-        }
 
-        if (elapsedTime >= timeLimit)
-        {
-            LoseGame();
-        }
+            if (elapsedTime >= timeLimit)
+            {
+                LoseGame();
+            }
 
-        if (NumHitNeed <= 0)
-        {
-            WinGameL();
-        }
-        else if (NumHitDone == NumHitNeed)
-        {
-            WinGameN();
-        }
-        else if (NumHitDone == NumHitNeed && NumHitNeed <= 1000)
-        {
-            WinGameW();
-        }
+            if (NumHitNeed <= 0)
+            {
+                WinGameL();
+            }
+            else if (NumHitDone == NumHitNeed)
+            {
+                WinGameN();
+            }
+            else if (NumHitDone == NumHitNeed && NumHitNeed <= 1000)
+            {
+                WinGameW();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NumHitDone = NumHitDone + 1;
-            Debug.Log(NumHitDone + " " + NumHitNeed);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                NumHitDone = NumHitDone + 1;
+                Debug.Log(NumHitDone + " " + NumHitNeed);
+            }
+
+            UpdateProgressBar();
+
+            Timer.text = $"{Mathf.RoundToInt(elapsedTime)} / {Mathf.RoundToInt(timeLimit)}s";
         }
-
-        UpdateProgressBar();
-
-        Timer.text = $"{elapsedTime} / {timeLimit}";
     }
 
     public void SetDifficulty(int Diff)
@@ -109,20 +108,11 @@ public class GameplayLogic : MonoBehaviour
     {
         if (progressBar != null)
         {
-            float progress = Mathf.Clamp01((float)NumHitDone / NumHitNeed); // Ensures progress is between 0 and 1
-            float maxWidth = progressBar.parent.GetComponent<RectTransform>().rect.width; // Get the container's width
+            float progress = Mathf.Clamp01((float)NumHitDone / NumHitNeed); // Ensures it's between 0 and 1
+            float maxWidth = progressBar.parent.GetComponent<RectTransform>().rect.width; // Get container width
 
-            progressBar.sizeDelta = new Vector2(progress * maxWidth, progressBar.sizeDelta.y); // Adjust width
-        }
-    }
-
-    void DecayProgress()
-    {
-        if (NumHitDone > 0)
-        {
-            NumHitDone -= Mathf.CeilToInt(progressDecayRate * Time.deltaTime * NumHitNeed);
-            NumHitDone = Mathf.Max(0, NumHitDone); // Ensure it doesn't go negative
-            UpdateProgressBar();
+            float newWidth = Mathf.Clamp(progress * maxWidth, 0, maxWidth); // Ensure it never exceeds maxWidth
+            progressBar.sizeDelta = new Vector2(newWidth, progressBar.sizeDelta.y);
         }
     }
 
