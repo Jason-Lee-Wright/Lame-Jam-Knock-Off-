@@ -13,6 +13,9 @@ public class MenuJason : MonoBehaviour
     {
         // Ensure the InputField only accepts numeric input
         difficultyInput.contentType = TMP_InputField.ContentType.IntegerNumber;
+
+        MenuJJ.SetActive(true);
+        GameplayJJ.SetActive(false);
     }
 
     void Update()
