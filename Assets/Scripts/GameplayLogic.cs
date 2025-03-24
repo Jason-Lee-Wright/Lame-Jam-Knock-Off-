@@ -42,7 +42,7 @@ public class GameplayLogic : MonoBehaviour
             {
                 WinGameL();
             }
-            else if (NumHitDone >= NumHitNeed && NumHitNeed <= 1000)
+            else if (NumHitDone >= NumHitNeed && NumHitNeed >= 1000)
             {
                 WinGameW();
             }
