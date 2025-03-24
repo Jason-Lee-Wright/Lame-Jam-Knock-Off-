@@ -42,13 +42,13 @@ public class GameplayLogic : MonoBehaviour
             {
                 WinGameL();
             }
-            else if (NumHitDone >= NumHitNeed)
-            {
-                WinGameN();
-            }
             else if (NumHitDone >= NumHitNeed && NumHitNeed <= 1000)
             {
                 WinGameW();
+            }
+            else if (NumHitDone >= NumHitNeed)
+            {
+                WinGameN();
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
